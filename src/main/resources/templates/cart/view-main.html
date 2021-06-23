@@ -87,7 +87,7 @@
 <th:block th:if="${message}">
     <p th:text="${message}"></p>
 </th:block>
-<table id="employees" border="2">
+<table id="employees3" border="2" style="padding: 30px 77px 30px 60px;">
     <thead>
     <tr>
         <th>Ngày tạo</th>
@@ -106,7 +106,7 @@
         <td th:text="*{numberContactClientCreated}"></td>
         <td th:text="*{addressClientCreated}"></td>
         <td th:text="*{status}"></td>
-        <td><a th:href="@{/home/cart/__${id}__/view}">
+        <td><a th:href="@{/home/cart/__${id}__/viewDetails}">
             <button>Xem giỏ hàng chi tiết</button>
         </a></td>
 

@@ -19,7 +19,7 @@ public class HomeController {
     public Cart setupCart() {
         return new Cart();
     }
-    @GetMapping("/home")
+    @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("dishes", mainDishService.findAll());
         return "home";

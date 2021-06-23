@@ -135,3 +135,40 @@
     text-align: center;
     background-color:#F5F5DC
 }
+#employees3 {
+    text-align:center;
+    background-color: black;
+
+}
+#employees3 thead tr th{
+    padding: 30px 77px 30px 60px;
+    text-align: center;
+    background-color:#F4A460 ;
+}
+
+#employees3 thead tr{
+    background-color:#F4A460
+}
+#employees3 tbody  tr {
+    text-align: center;
+    background-color:#F5F5DC
+}
+#employees4 {
+    text-align:center;
+    background-color: black;
+
+}
+#employees4 thead tr th{
+    padding: 30px 116px 30px 60px;
+    text-align: center;
+    background-color:#F4A460 ;
+}
+
+#employees4 thead tr{
+    text-align: center;
+    background-color:#F4A460
+}
+#employees4 tbody  tr {
+    text-align: center;
+    background-color:#F5F5DC
+}

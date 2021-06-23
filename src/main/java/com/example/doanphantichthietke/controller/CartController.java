@@ -27,11 +27,7 @@ public class CartController {
 
     @Autowired
     MainDishService mainDishService;
-    /*@GetMapping("/home/cart")
-    public String index(Model model) {
-        model.addAttribute("carts", cartService.findAll());
-        return "cart/list";
-    }*/
+
     @Autowired
     ClientService clientService;
 
@@ -104,16 +100,6 @@ public class CartController {
     }
 
 
-    //-----CREATE NEW cart
-/*    @GetMapping("/home/cart/create")
-    public ModelAndView create() {
-        ModelAndView modelAndView = new ModelAndView("/cart/create");
-        Cart cart = new Cart();
-        LocalDateTime date = LocalDateTime.now();
-        cart.setDateCreated(date);
-        modelAndView.addObject("cart",cart);
-        return modelAndView;
-    }*/
 
     @PostMapping("/home/cart/save")
     public String save(Cart cart, Model model) {
@@ -123,14 +109,6 @@ public class CartController {
         model.addAttribute("cart", cart);
         return "cart/home";
     }
-
-    //----- GIAO DIEN DE CHUYEN SANG MUA DO
-/*    @GetMapping("/home/cart")
-    public ModelAndView homeCart() {
-        ModelAndView modelAndView = new ModelAndView("cart/home");
-
-        return modelAndView;
-    }*/
 
     //-----XEM GIỎ HÀNG CHI TIẾT
     @GetMapping("/home/cart/{id}/view")
@@ -148,15 +126,26 @@ public class CartController {
         return modelAndView;
     }
 
+    @GetMapping("/home/cart/{id}/viewDetails")
+    public ModelAndView viewCartDetails(@PathVariable("id") Long id) {
+        Optional<Cart> cartOptional = cartService.findById(id);
+        if (!cartOptional.isPresent()) {
+            return new ModelAndView("/error.404");
+        }
+        Iterable<Dish> dishes = dishService.findAllByCart(cartOptional.get());
+
+        ModelAndView modelAndView = new ModelAndView("/cart/viewDetails");
+        modelAndView.addObject("id", cartOptional.get().getId());
+        modelAndView.addObject("cart", cartOptional.get());
+        modelAndView.addObject("dishes", dishes);
+        return modelAndView;
+    }
     //-----CREATE NEW dish IN cart
     @GetMapping("/home/cart/{id}/create/dish")
     public ModelAndView createDish(@PathVariable Long id) {
 
         ModelAndView modelAndView = new ModelAndView("cart/create-dish");
         Optional<Cart> cartOptional = cartService.findById(id);
-/*        Dish dish = new Dish();
-        dish.setCart(cartOptional.get());
-        modelAndView.addObject("dish", dish);*/
         modelAndView.addObject("cart", cartOptional.get());
         modelAndView.addObject("dishes", mainDishService.findAll());
 
@@ -206,23 +195,6 @@ public class CartController {
         redirectAttributes.addFlashAttribute("message", "Xóa món ăn thành công");
         return "redirect:/home/cart/{id}/view";
     }
-
-    //-----DELETE cart
-    @GetMapping("/home/cart/{id}/delete")
-    public ModelAndView delete(@PathVariable("id") Long id) {
-        Optional<Cart> cartOptional = cartService.findById(id);
-        ModelAndView modelAndView = new ModelAndView("cart/delete");
-        modelAndView.addObject("cart", cartOptional.get());
-        return modelAndView;
-    }
-
-    @PostMapping("/home/cart/delete")
-    public String delete(Cart cart, RedirectAttributes redirectAttributes) {
-        cartService.remove(cart.getId());
-        redirectAttributes.addFlashAttribute("message", "Xóa giỏ hàng thành công");
-        return "redirect:/home/cart";
-    }
-
     //-----CHỌN MÓN ĂN
     @GetMapping("/home/cart/{id}/dish/{id2}")
     public String buyDish(@PathVariable("id") Long id, @PathVariable("id2") Long id2, Model model, RedirectAttributes redirectAttributes) {
@@ -246,4 +218,18 @@ public class CartController {
                 " hoàn tất thủ tục");
         return modelAndView;
     }
+/*    //-----hủy đơn hàng
+    @GetMapping("/home/cart/{id}/delete")
+    public ModelAndView delete(@PathVariable("id") Long id) {
+        Optional<Cart> cartOptional = cartService.findById(id);
+        ModelAndView modelAndView = new ModelAndView("cart/delete");
+        modelAndView.addObject("cart", cartOptional.get());
+        return modelAndView;
+    }
+    @PostMapping("/home/cart/delete")
+    public String delete(Cart cart, RedirectAttributes redirectAttributes) {
+        cartService.remove(cart.getId());
+        redirectAttributes.addFlashAttribute("message", "Xóa giỏ hàng thành công");
+        return "redirect:/home/cart";
+    }*/
 }

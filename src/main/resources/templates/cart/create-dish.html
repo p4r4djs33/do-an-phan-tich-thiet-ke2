@@ -75,9 +75,11 @@
         <button>Xem giỏ hàng chi tiết</button>
     </a>
 </p>
-<!--<p style="margin-left: 200px">
-  <a th:href="@{/home/cart/__${id}__/view/main}"><button>Thông tin của bạn</button></a>
-</p>-->
+        <p>
+            <a th:href="@{/home/cart/__${id}__/create/dish}">
+                <button>Xem món ăn</button>
+            </a>
+        </p>
 <th:block th:if="${message}">
     <h5 th:text="${message}"></h5>
 </th:block>
@@ -124,6 +126,7 @@
         </form>
     </div>
 </th:block>
+
 <th:block th:if="${dishes}">
     <table id="employees2" border="2" style="border: black">
         <thead>
