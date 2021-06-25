@@ -70,12 +70,6 @@
                 </div>
             </div>
         </div>
-        <!--
-<h1>Date created: <span th:text="${cart.dateCreated}"></span></h1>
-<h1>Name client: <span th:text="${cart.nameClientCreated}"></span></h1>
-<h1>Number contact: <span th:text="${cart.numberContactClientCreated}"></span></h1>
-<h1>Address: <span th:text="${cart.addressClientCreated}"></span></h1>-->
-<!--<a th:href="@{/home/cart/__${id}__/create/dish}"><button>Chọn sản phẩm</button></a></br>-->
 
 <th:block th:if="${message}">
     <p th:text="${message}"></p>
@@ -83,7 +77,7 @@
 <a th:href="@{/admin}"><button>Quay lại danh sách giỏ hàng</button></a>
         <div id="abbb" style="border:  solid 3px #770000 ">
             </br>
-<table id="employees" border="2" style="border: black">
+<table id="employees5" border="2" style="border: black">
     <thead>
     <tr>
         <th>Tên món</th>
@@ -102,14 +96,7 @@
             <td th:with="variable = ${dish.amount}, controllerVar = ${dish.price}, var = ${variable * controllerVar}" th:text="${var}"></td>
             <td th:text="${dish.cart.dateCreated}"></td>
         </tr>
-
-
     </th:block>
-
-    <!--        <tr>
-                <td>Total: </td>
-                <td th:text="*{#aggregates.sum(dishes.![price*amount])}">23.32</td>
-            </tr>-->
 </table>
 <h4>Tổng tiền hàng của khách là</h4>
 <h4><th:block th:text="*{#aggregates.sum(dishes.![price*amount])}"></th:block></h4>

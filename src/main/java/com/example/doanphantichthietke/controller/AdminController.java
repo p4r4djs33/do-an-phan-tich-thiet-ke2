@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.text.SimpleDateFormat;
 import java.util.Optional;
 
 @Controller
@@ -133,10 +134,13 @@ public class AdminController {
     @GetMapping("/admin/{id}/edit")
     public ModelAndView editCart(@PathVariable("id") Long id) {
         Optional<Cart> cart = cartService.findById(id);
+        Iterable<Dish> dishes = dishService.findAllByCart(cart.get());
         ModelAndView modelAndView = new ModelAndView("Admin/Cart/edit");
         modelAndView.addObject("cart", cart.get());
+        modelAndView.addObject("dishes", dishes);
         return modelAndView;
     }
+
     @PostMapping("/admin/edit")
     public String editCart(Cart cart, RedirectAttributes redirect) {
         cartService.save(cart);

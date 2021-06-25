@@ -172,3 +172,23 @@
     text-align: center;
     background-color:#F5F5DC
 }
+
+#employees5 {
+    text-align:center;
+    background-color: black;
+
+}
+#employees5 thead tr th{
+    padding: 30px 116px 30px 60px;
+    text-align: center;
+    background-color:#F4A460 ;
+}
+
+#employees5 thead tr{
+    text-align: center;
+    background-color:#F4A460
+}
+#employees5 tbody  tr {
+    text-align: center;
+    background-color:#F5F5DC
+}

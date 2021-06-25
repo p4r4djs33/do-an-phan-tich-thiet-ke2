@@ -88,8 +88,6 @@
         <th>Tên khách hàng</th>
         <th>Số điện thoại liên hệ</th>
         <th>Tình trạng</th>
-<!--        <th>Xóa đơn hàng</th>-->
-        <th>Xem chi tiết</th>
         <th>Chỉnh sửa</th>
     </tr>
     </thead>
@@ -100,8 +98,6 @@
         <td th:text="${row.getNameClientCreated()}"></td>
         <td th:text="${row.getNumberContactClientCreated()}"></td>
         <td th:text="${row.getStatus()}"></td>
-<!--        <td><a th:href="@{/admin/{id}/delete(id=${row.getId()})}"><button>Xóa</button></a></td>-->
-        <td><a th:href="@{/admin/{id}/view(id=${row.getId()})}"><button>Chi tiết</button></a></td>
         <td><a th:href="@{/admin/{id}/edit(id=${row.getId()})}"><button>Chỉnh sửa</button></a></td>
     </tr>
     </tbody>
