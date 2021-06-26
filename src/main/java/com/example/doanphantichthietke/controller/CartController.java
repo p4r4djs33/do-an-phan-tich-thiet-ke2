@@ -92,6 +92,7 @@ public class CartController {
         }
         return modelAndView;
     }
+
     @ExceptionHandler(NullPointerException.class)
     public String nullClient(Model model, RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("message", "Bạn đã nhập tài khoản hoặc mật khẩu sai, xin mời nhập lại");
@@ -100,10 +101,8 @@ public class CartController {
     }
 
 
-
     @PostMapping("/home/cart/save")
     public String save(Cart cart, Model model) {
-        cart.setStatus("Đặt hàng");
         cartService.save(cart);
         model.addAttribute("id", cart.getId());
         model.addAttribute("cart", cart);
@@ -122,24 +121,11 @@ public class CartController {
         ModelAndView modelAndView = new ModelAndView("/cart/view");
         modelAndView.addObject("id", cartOptional.get().getId());
         modelAndView.addObject("cart", cartOptional.get());
+        modelAndView.addObject("status", cartOptional.get().getStatus());
         modelAndView.addObject("dishes", dishes);
         return modelAndView;
     }
 
-    @GetMapping("/home/cart/{id}/viewDetails")
-    public ModelAndView viewCartDetails(@PathVariable("id") Long id) {
-        Optional<Cart> cartOptional = cartService.findById(id);
-        if (!cartOptional.isPresent()) {
-            return new ModelAndView("/error.404");
-        }
-        Iterable<Dish> dishes = dishService.findAllByCart(cartOptional.get());
-
-        ModelAndView modelAndView = new ModelAndView("/cart/viewDetails");
-        modelAndView.addObject("id", cartOptional.get().getId());
-        modelAndView.addObject("cart", cartOptional.get());
-        modelAndView.addObject("dishes", dishes);
-        return modelAndView;
-    }
     //-----CREATE NEW dish IN cart
     @GetMapping("/home/cart/{id}/create/dish")
     public ModelAndView createDish(@PathVariable Long id) {
@@ -175,7 +161,7 @@ public class CartController {
             redirectAttributes) {
         dishService.save(dish);
         redirectAttributes.addFlashAttribute("message", "Chỉnh sửa món thành công");
-        return "redirect:/home/cart/{id}/view/edit/{id2}";
+        return "redirect:/home/cart/{id}/view";
     }
 
     //-----DELETE dish IN cart
@@ -195,6 +181,7 @@ public class CartController {
         redirectAttributes.addFlashAttribute("message", "Xóa món ăn thành công");
         return "redirect:/home/cart/{id}/view";
     }
+
     //-----CHỌN MÓN ĂN
     @GetMapping("/home/cart/{id}/dish/{id2}")
     public String buyDish(@PathVariable("id") Long id, @PathVariable("id2") Long id2, Model model, RedirectAttributes redirectAttributes) {
@@ -206,6 +193,18 @@ public class CartController {
         dish.setPrice(mainDishOptional.get().getPrice());
         model.addAttribute("dish", dish);
         return "cart/create-dish";
+    }
+
+    @GetMapping("/home/cart/{id}/order")
+    public ModelAndView order(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView("cart/order");
+        Optional<Cart> cartOptional = cartService.findById(id);
+        cartOptional.get().setStatus("Đặt hàng");
+        cartService.save(cartOptional);
+        Iterable<Dish> dishes = dishService.findAllByCart(cartOptional.get());
+        modelAndView.addObject("cart", cartOptional.get());
+        modelAndView.addObject("dishes", dishes);
+        return modelAndView;
     }
 
     //-----xem giỏ hàng

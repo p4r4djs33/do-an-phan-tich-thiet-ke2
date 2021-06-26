@@ -28,6 +28,11 @@ public class MainDishImpl implements MainDishService {
     }
 
     @Override
+    public void save(Optional<MainDish> mainDish) {
+
+    }
+
+    @Override
     public void remove(Long id) {
         mainDishRepository.deleteById(id);
     }

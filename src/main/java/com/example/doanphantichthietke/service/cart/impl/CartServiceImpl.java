@@ -28,6 +28,11 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public void save(Optional<Cart> cart) {
+        cartRepository.save(cart.get());
+    }
+
+    @Override
     public void remove(Long id) {
         cartRepository.deleteById(id);
     }
