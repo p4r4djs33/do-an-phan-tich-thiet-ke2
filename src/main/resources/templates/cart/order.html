@@ -73,9 +73,9 @@
       </div>
     </div>
   </div>
-<!--  <a th:href="@{/admin}">
-    <button>Quay lại danh sách giỏ hàng</button>
-  </a>-->
+  <!--  <a th:href="@{/admin}">
+      <button>Quay lại danh sách giỏ hàng</button>
+    </a>-->
   <div id="abbb" style="border:  solid 3px #770000 ">
     <table id="employees5" border="2" style="border: black">
       <thead>
@@ -104,48 +104,48 @@
     </h4>
     <hr style="border: 1px solid tan">
     <div id="form">
-        <fieldset>
-          <legend>Thông tin khách hàng</legend>
-          <tr>
-            <td><input type="hidden" th:field="*{id}" readonly></td>
-          </tr>
-          <tr>
-            <td><label class="control-label" for="date" style="margin-right: 68px">Ngày mua</label></td>
-            <td><input type="text" class="form-control" id="date" th:field="${cart.dateCreated}" readonly></td>
-            </br>
-          </tr>
-          <tr>
-            <td><label class="control-label" for="name" style="margin-right: 68px">Tên</label></td>
-            <td><input type="text" class="form-control" id="name" th:field="${cart.nameClientCreated}" readonly>
-            </td>
-            </br>
-          </tr>
-          <tr>
-            <td><label class="control-label" for="phone" style="margin-right: 68px">Số điện thoại</label>
-            </td>
-            <td><input type="text" class="form-control" id="phone" th:field="${cart.numberContactClientCreated}"
-                       readonly></td>
-            </br>
-          </tr>
-          <tr>
-            <td><label class="control-label" for="addr" style="margin-right: 68px">Địa chỉ</label></td>
-            <td><input type="text" class="form-control" id="addr" th:field="${cart.addressClientCreated}"
-                       readonly></td>
-            </br>
-          </tr>
+      <fieldset>
+        <legend>Thông tin khách hàng</legend>
+        <tr>
+          <td><input type="hidden" th:field="*{id}" readonly></td>
+        </tr>
+        <tr>
+          <td><label class="control-label" for="date" style="margin-right: 68px">Ngày mua</label></td>
+          <td><input type="text" class="form-control" id="date" th:field="${cart.dateCreated}" readonly></td>
           </br>
-          <tr>
-            <p>
-              <a th:href="@{/home/cart/__${id}__/view/main}">
-                <button>Đặt hàng</button>
-              </a>
-            </p>
-          </tr>
+        </tr>
+        <tr>
+          <td><label class="control-label" for="name" style="margin-right: 68px">Tên</label></td>
+          <td><input type="text" class="form-control" id="name" th:field="${cart.nameClientCreated}" readonly>
+          </td>
           </br>
-        </fieldset>
+        </tr>
+        <tr>
+          <td><label class="control-label" for="phone" style="margin-right: 68px">Số điện thoại</label>
+          </td>
+          <td><input type="text" class="form-control" id="phone" th:field="${cart.numberContactClientCreated}"
+                     readonly></td>
+          </br>
+        </tr>
+        <tr>
+          <td><label class="control-label" for="addr" style="margin-right: 68px">Địa chỉ</label></td>
+          <td><input type="text" class="form-control" id="addr" th:field="${cart.addressClientCreated}"
+                     readonly></td>
+          </br>
+        </tr>
+        </br>
+        <tr>
+          <p>
+            <a th:href="@{/home/cart/__${id}__/view/main}">
+              <button>Đặt hàng</button>
+            </a>
+          </p>
+        </tr>
+        </br>
+      </fieldset>
     </div>
   </div>
-  <div class="container" style="background-color:aquamarine;height: 80px;">
+  <div id="footer" class="container" style="background-color:aquamarine;height: 80px;">
     <div class="row"></div>
     <div class="col-md-7 col-sm-7 col-xs-7">
       <ul class="breadcrumb" style="background-color: aquamarine">

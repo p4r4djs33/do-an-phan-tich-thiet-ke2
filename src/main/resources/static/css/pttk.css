@@ -192,3 +192,8 @@
     text-align: center;
     background-color:#F5F5DC
 }
+#footer{
+    position: fixed;
+    bottom: 0;
+    height: auto;
+}
