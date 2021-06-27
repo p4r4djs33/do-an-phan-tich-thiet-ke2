@@ -7,6 +7,8 @@ import com.example.doanphantichthietke.service.client.ClientService;
 import com.example.doanphantichthietke.service.dish.DishService;
 import com.example.doanphantichthietke.service.mainDish.MainDishService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -128,12 +130,12 @@ public class CartController {
 
     //-----CREATE NEW dish IN cart
     @GetMapping("/home/cart/{id}/create/dish")
-    public ModelAndView createDish(@PathVariable Long id) {
+    public ModelAndView createDish(@PathVariable Long id, @PageableDefault(size = 5) Pageable pageable) {
 
         ModelAndView modelAndView = new ModelAndView("cart/create-dish");
         Optional<Cart> cartOptional = cartService.findById(id);
         modelAndView.addObject("cart", cartOptional.get());
-        modelAndView.addObject("dishes", mainDishService.findAll());
+        modelAndView.addObject("dishes", mainDishService.findAll(pageable));
 
         return modelAndView;
     }
@@ -190,6 +192,7 @@ public class CartController {
         Dish dish = new Dish();
         dish.setCart(cartOptional.get());
         dish.setName(mainDishOptional.get().getName());
+        dish.setAmount(1L);
         dish.setPrice(mainDishOptional.get().getPrice());
         model.addAttribute("dish", dish);
         return "cart/create-dish";

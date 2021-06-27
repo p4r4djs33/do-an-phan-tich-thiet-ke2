@@ -9,18 +9,25 @@ import com.example.doanphantichthietke.service.cart.CartService;
 import com.example.doanphantichthietke.service.dish.DishService;
 import com.example.doanphantichthietke.service.mainDish.MainDishService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.Optional;
 
 @Controller
+@EnableSpringDataWebSupport
 public class AdminController {
     @Autowired
     AdminService admin;
@@ -33,15 +40,15 @@ public class AdminController {
 
     //-----HOME PAGE
     @GetMapping("/admin")
-    public String index(Model model) {
-        model.addAttribute("Carts", cartService.findAllOrderByDate());
+    public String index(Model model, @PageableDefault(size = 10) Pageable pageable) {
+        model.addAttribute("Carts", cartService.findAllOrderByDate(pageable));
         return "Admin/Cart/list";
     }
 
     //DANH SACH MON
     @GetMapping("/admin/dish")
-    public String ShowDish(Model model) {
-        model.addAttribute("Dishes", mainDishService.findAll());
+    public String ShowDish(Model model, @PageableDefault(size = 5) Pageable pageable) {
+        model.addAttribute("Dishes", mainDishService.findAll(pageable));
         return "Admin/dish/list";
     }
 
@@ -68,11 +75,16 @@ public class AdminController {
         Optional<MainDish> mainDish = mainDishService.findById(id);
         ModelAndView modelAndView = new ModelAndView("Admin/dish/edit");
         modelAndView.addObject("mainDish", mainDish.get());
+        modelAndView.addObject("imageDish", mainDish.get().getImage());
         return modelAndView;
     }
 
     @PostMapping("/admin/dish/update")
-    public String update(MainDish mainDish, RedirectAttributes redirect) {
+    public String update(MainDish mainDish, RedirectAttributes redirect, @RequestParam("fileLabel") String fileLabel,
+                         @RequestParam("image") String image) {
+        if (image == "") {
+            mainDish.setImage(fileLabel);
+        }
         mainDishService.save(mainDish);
         redirect.addFlashAttribute("message", "Edit dish successfully!");
         return "redirect:/admin/dish";

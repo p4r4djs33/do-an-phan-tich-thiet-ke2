@@ -4,6 +4,8 @@ import com.example.doanphantichthietke.model.Cart;
 import com.example.doanphantichthietke.service.dish.DishService;
 import com.example.doanphantichthietke.service.mainDish.MainDishService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +22,8 @@ public class HomeController {
         return new Cart();
     }
     @GetMapping("/")
-    public String home(Model model) {
-        model.addAttribute("dishes", mainDishService.findAll());
+    public String home(Model model, @PageableDefault(size = 5) Pageable pageable) {
+        model.addAttribute("dishes", mainDishService.findAll(pageable));
         return "home";
     }
 

@@ -4,6 +4,8 @@ import com.example.doanphantichthietke.model.Cart;
 import com.example.doanphantichthietke.repository.CartRepository;
 import com.example.doanphantichthietke.service.cart.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -38,7 +40,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Iterable<Cart> findAllOrderByDate() {
-        return cartRepository.findAllOrderByDate();
+    public Page<Cart> findAllOrderByDate(Pageable pageable) {
+        return cartRepository.findAllOrderByDate(pageable);
     }
 }

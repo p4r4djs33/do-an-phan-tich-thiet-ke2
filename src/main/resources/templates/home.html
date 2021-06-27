@@ -94,6 +94,11 @@
             <td th:text="${row.getPrice()}"></td>
         </tr>
         </tbody>
+        <div style="font-size: 25px; text-align: center">
+            <a th:href="@{'/'(page=${dishes.number - 1})}" th:if="${dishes.hasPrevious()}">Trước</a>
+            <span th:text="${dishes.number + 1}"></span>/<span th:text="${dishes.totalPages}"></span>
+            <a th:href="@{'/'(page=${dishes.number + 1})}" th:if="${dishes.hasNext()}">Sau</a>
+        </div>
     </table>
 </th:block>
 <div class="container" style="background-color:aquamarine;height: 80px;">

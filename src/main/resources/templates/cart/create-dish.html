@@ -110,7 +110,7 @@
                             </tr>
                             <tr>
                                 <td><label style="margin-right: 51px">Số lượng</label></td>
-                                <td><input type="number" id="amount" th:field="*{amount}"></td>
+                                <td><input type="number" id="amount" value="1" th:field="*{amount}" ></td>
                                 </br>
                             </tr>
                             <tr>
@@ -154,6 +154,11 @@
                     </a></td>
                 </tr>
                 </tbody>
+                <div style="font-size: 25px; text-align: center">
+                    <a th:href="@{'/home/cart/__${cart.getId()}__/create/dish'(page=${dishes.number - 1})}" th:if="${dishes.hasPrevious()}">Trước</a>
+                    <span th:text="${dishes.number + 1}"></span>/<span th:text="${dishes.totalPages}"></span>
+                    <a th:href="@{'/home/cart/__${cart.getId()}__/create/dish'(page=${dishes.number + 1})}" th:if="${dishes.hasNext()}">Sau</a>
+                </div>
             </table>
         </th:block>
         <div class="container" style="background-color:aquamarine;height: 80px;">
